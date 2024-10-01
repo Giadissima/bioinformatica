@@ -1,0 +1,10 @@
+H VN:Z:1.0
+S s1 GATTACA
+S s2 CCGT
+S s3 AGA
+S s4 TTT
+L s1 + s2 + *
+L s2 + s3 + *
+L s3 + s4 + *
+L s3 + s2 + *
+P path1 s1+,s2+,s3+,s4+
