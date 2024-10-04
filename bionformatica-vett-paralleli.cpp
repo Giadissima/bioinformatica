@@ -24,7 +24,10 @@ public:
 vector<Nodo> nodi;                 // Contiene tutti i nodi del grafo
 vector<string> adiacenze_origini;  // Nodi di partenza degli archi
 vector<string> adiacenze_destinazioni; // Nodi di arrivo degli archi
-vector<string> adiacenze_overlap;  // Overlap tra sequenze nei nodi collegati
+vector<string> adiacenze_overlap;  // ? L'overlap è una parte di una sequenza che si sovrappone a un'altra sequenza. Ad esempio, se hai due sequenze:
+                                    // ? Sequenza A: ACGTGTA
+                                    // ? Sequenza B: GTACG
+                                    // ? In questo caso, le sequenze si sovrappongono nel segmento GTA
 
 // CREAZIONE GRAFO
 // Funzione per aggiungere un nodo al grafo
@@ -69,7 +72,7 @@ void leggiGFA(const string& filename)
     }
 
     fclose(file); // Chiudi il file dopo aver finito di leggerlo
-}
+} 
 
 // ANALISI GRAFO
 // Funzione per rimuovere un arco dato il suo indice

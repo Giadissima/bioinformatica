@@ -1,13 +1,33 @@
-H VN:Z:1.0
-S s1 GATTACA
-S s2 CCGT
-S s3 AGA
-S s4 TTT
-S s5 BAHG
-L s1 + s2 + *
-L s2 + s3 + *
-L s3 + s4 + *
-L s4 + s1 + *
-L s1 + s4 + *
-L s4 + s2 + *
-
+H	VN:Z:1.0
+S	s1	GATTACA
+S	s2	CCGT
+S	s3	AGA
+S	s4	TTT
+S	s5	BAHG
+S	s6	CGTG
+S	s7	GTT
+S	s8	ATA
+S	s9	CAC
+S	s10	AAA
+L	s1	+	s2	+	*
+L	s1	+	s4	+	*
+L	s1	+	s3	+	*
+L	s1	+	s5	+	*
+L	s2	+	s4	+	*
+L	s2	+	s3	+	*
+L	s2	+	s5	+	*
+L	s2	+	s6	+	*
+L	s3	+	s4	+	*
+L	s3	+	s5	+	*
+L	s3	+	s6	+	*
+L	s4	+	s6	+	*
+L	s4	+	s5	+	*
+L	s5	+	s10	+	*
+L	s5	+	s6	+	*
+L	s6	+	s10	+	*
+L	s7	+	s10	+	*
+L	s6	+	s4	+	*
+L	s8	+	s9	+	*
+L	s9	+	s10	+	*
+L	s8	+	s6	+	*
+L	s2	+	s8	+	*
