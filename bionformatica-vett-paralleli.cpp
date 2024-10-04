@@ -76,24 +76,11 @@ void leggiGFA(const string& filename)
 
 // ANALISI GRAFO
 // Funzione per rimuovere un arco dato il suo indice
-void remove_arco(int i)
+void azzera_arco(int i)
 {
     adiacenze_destinazioni.erase(adiacenze_destinazioni.begin() + i); // Rimuovi il nodo di destinazione
     adiacenze_origini.erase(adiacenze_origini.begin() + i); // Rimuovi il nodo di origine
     adiacenze_overlap.erase(adiacenze_overlap.begin() + i); // Rimuovi l'overlap associato
-}
-
-// Funzione per rimuovere un arco che rappresenta un back edge
-bool remove_back_edge(string nodo_partenza, string nodo_destinazione)
-{
-    for (int j = 0; j < adiacenze_origini.size(); j++) {
-        // Controlla se l'arco esiste nel grafo
-        if (nodo_partenza == adiacenze_origini[j] && nodo_destinazione == adiacenze_destinazioni[j]) {
-            remove_arco(j); // Rimuovi l'arco dal grafo
-            return true; // Indica che un arco è stato rimosso
-        }
-    }
-    return false; // Nessun arco trovato e rimosso
 }
 
 // Funzione per verificare se un nodo è già stato visitato
@@ -115,7 +102,7 @@ bool DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitat
 
             // Se troviamo il nodo di partenza, abbiamo trovato un ciclo
             if (prossimo_nodo == nodo_partenza) {
-                remove_arco(j); // Rimuovi l'arco del ciclo
+                azzera_arco(j); // Rimuovi l'arco del ciclo
                 return true; // Indica che un ciclo è stato trovato e rimosso
             }
 
@@ -148,7 +135,7 @@ bool DFS()
         for (int j = 0; j < adiacenze_origini.size(); j++) {
             if (nodi[i].id == adiacenze_origini[j]) {
                 // Controlla se un arco crea un back edge o un ciclo
-                if (remove_back_edge(adiacenze_destinazioni[j], nodi[i].id) || remove_loop(nodi[i].id))
+                if (remove_loop(nodi[i].id))
                     return true; // Indica che un arco è stato rimosso
             }
         }
@@ -174,7 +161,7 @@ void stampaGrafo()
         cout << "Non ci sono nodi nel grafo." << endl; // Messaggio informativo
     for (int i = 0; i < nodi.size(); i++) {
         // Stampa informazioni su ogni nodo
-        cout << "Nodo " << nodi[i].id << " " << nodi[i].sequenza << " collegato a:" << endl;
+        cout <<endl<< "Nodo " << nodi[i].id << " " << nodi[i].sequenza << " collegato a:" << endl;
         bool trovato = false; // Flag per controllare se ci sono archi collegati
         for (int j = 0; j < adiacenze_origini.size(); j++) {
             // Controlla se il nodo attuale ha archi uscenti
