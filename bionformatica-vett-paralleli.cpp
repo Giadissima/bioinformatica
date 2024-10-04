@@ -193,7 +193,7 @@ void stampaGrafo()
 // Funzione principale del programma
 int main()
 {
-    leggiGFA("file.gfa"); // Inserisci il nome del file GFA da analizzare
+    leggiGFA("test1.gfa"); // Inserisci il nome del file GFA da analizzare
     analizza_grafo(); // Esegui l'analisi del grafo per rimuovere back edges e cicli
     stampaGrafo(); // Stampa il grafo risultante
     return 0; // Termina il programma

@@ -3,11 +3,14 @@ S s1 GATTACA
 S s2 CCGT
 S s3 AGA
 S s4 TTT
+S s5 BAHG
 L s1 + s2 + *
 L s1 + s3 + *
 L s2 + s3 + *
 L s3 + s4 + *
+L s4 + s2 + *
+L s4 + s5 + *
 L s3 + s2 + *
 L s3 + s1 + *
 L s2 + s1 + *
-P path1 s1+,s2+,s3+,s4+
+L s4 + s1 + *
