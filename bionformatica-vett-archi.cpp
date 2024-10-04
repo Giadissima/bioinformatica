@@ -4,7 +4,7 @@
 #include <vector>
 
 using namespace std;
-
+//TODO aggiungere parametri argv
 class Nodo {
 public:
     string id;
@@ -46,7 +46,7 @@ public:
         adiacenze.push_back(Arco(origine, destinazione, overlap));
     }
 
-    void leggiGFA(const string& filename)
+    void leggiGFA(const string filename)
     {
         // Utilizzo di freopen per reindirizzare stdin al file
         FILE* file = freopen(filename.c_str(), "r", stdin);
