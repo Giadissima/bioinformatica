@@ -46,7 +46,7 @@ void leggiGFA(const string& filename) {
             string id, sequenza;
             iss >> id >> sequenza;
             aggiungiNodo(id, sequenza);
-        } else if (tipo == "L") {
+        } else if (tipo == "L") { // TODO controllare se è unused oppure se l'orientamento è al contrario
             string origine, orientamentoOrigine, destinazione, orientamentoDestinazione, overlap;
             iss >> origine >> orientamentoOrigine >> destinazione >> orientamentoDestinazione >> overlap;
             aggiungiArco(origine, destinazione, overlap);
