@@ -76,7 +76,7 @@ void leggiGFA(const string& filename)
 
 // ANALISI GRAFO
 // Funzione per rimuovere un arco dato il suo indice
-void azzera_arco(int i)
+void cancella_arco(int i) // i = cella da rimuovere
 {
     adiacenze_destinazioni.erase(adiacenze_destinazioni.begin() + i); // Rimuovi il nodo di destinazione
     adiacenze_origini.erase(adiacenze_origini.begin() + i); // Rimuovi il nodo di origine
@@ -93,6 +93,7 @@ bool is_visitato(vector<string> visitati, string nodo_k)
 // Funzione per eseguire una DFS (ricerca in profondità) ricorsiva
 bool DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitati)
 {
+    bool risultato;
     visitati.push_back(nodo_attuale); // Aggiungi il nodo attuale alla lista dei visitati
 
     for (int j = 0; j < adiacenze_origini.size(); j++) {
@@ -102,7 +103,7 @@ bool DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitat
 
             // Se troviamo il nodo di partenza, abbiamo trovato un ciclo
             if (prossimo_nodo == nodo_partenza) {
-                azzera_arco(j); // Rimuovi l'arco del ciclo
+                cancella_arco(j); // Rimuovi l'arco del ciclo
                 return true; // Indica che un ciclo è stato trovato e rimosso
             }
 

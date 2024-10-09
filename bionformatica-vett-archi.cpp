@@ -29,9 +29,6 @@ public:
     }
 };
 
-class ArrayHelper {
-};
-
 class Grafo {
 public:
     vector<Nodo> nodi;
