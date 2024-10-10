@@ -225,6 +225,8 @@ int main()
     leggiGFA("test2.gfa"); // Inserisci il nome del file GFA da analizzare
     analizza_grafo(); // Esegui l'analisi del grafo per rimuovere back edges e cicli
     stampaGrafo(); // Stampa il grafo risultante
+
+    // TODO da tastiera
     string sorgente = "s1";  // Esempio di nodo sorgente
     string destinazione = "s10";  // Esempio di nodo destinazione
 

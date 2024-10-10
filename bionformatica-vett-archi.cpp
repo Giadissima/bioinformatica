@@ -194,13 +194,61 @@ public:
             }
         }
     }
+
+    // PUNTO 3
+    // Funzione per trovare tutti i cammini da s a t
+    void DFS_cammini(string nodo_attuale, string nodo_destinazione, vector<string>& cammino_corrente, int& contatore_cammini)
+    {
+        // Aggiungi il nodo corrente al cammino
+        cammino_corrente.push_back(nodo_attuale);
+
+        // Se siamo arrivati alla destinazione, stampiamo il cammino
+        if (nodo_attuale == nodo_destinazione) {
+            contatore_cammini++;
+            cout << "Cammino " << contatore_cammini << ": ";
+            for (const string& nodo : cammino_corrente) {
+                cout << nodo << " ";
+            }
+            cout << endl;
+            // Se abbiamo stampato 42 cammini, ci fermiamo
+            if (contatore_cammini >= 42) {
+                return;
+            }
+        } else {
+            // Altrimenti continuiamo la DFS per i nodi adiacenti
+            for (int i = 0; i < adiacenze.size(); i++) {
+                if (adiacenze[i].origine == nodo_attuale) {
+                    DFS_cammini(adiacenze[i].destinazione, nodo_destinazione, cammino_corrente, contatore_cammini);
+                    if (contatore_cammini >= 42) {
+                        return;
+                    }
+                }
+            }
+        }
+
+        // Rimuoviamo il nodo corrente dal cammino quando torniamo indietro
+        cammino_corrente.pop_back();
+    }
+
+    void trova_cammini(string sorgente, string destinazione)
+    {
+        vector<string> cammino_corrente;
+        int contatore_cammini = 0;
+        DFS_cammini(sorgente, destinazione, cammino_corrente, contatore_cammini);
+        cout << "ci sono " << contatore_cammini << " cammini" << endl;
+    }
 };
 
 int main()
 {
     Grafo grafo;
-    grafo.leggiGFA("test1.gfa"); // Inserisci il nome del file GFA qui
+    grafo.leggiGFA("test2.gfa"); // Inserisci il nome del file GFA qui
     grafo.analizzaGrafo();
     grafo.stampaGrafo(); // Stampa il grafo per verificare se è corretto
+    // TODO da tastiera
+    string sorgente = "s1"; // Esempio di nodo sorgente
+    string destinazione = "s10"; // Esempio di nodo destinazione
+
+    grafo.trova_cammini(sorgente, destinazione);
     return 0;
 }
