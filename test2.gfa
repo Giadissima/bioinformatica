@@ -1,33 +1,102 @@
-H	VN:Z:1.0
-S	s1	GATTACA
-S	s2	CCGT
-S	s3	AGA
-S	s4	TTT
-S	s5	BAHG
-S	s6	CGTG
-S	s7	GTT
-S	s8	ATA
-S	s9	CAC
-S	s10	AAA
-L	s1	+	s2	+	*
-L	s1	+	s4	+	*
-L	s1	+	s3	+	*
-L	s1	+	s5	+	*
-L	s2	+	s4	+	*
-L	s2	+	s3	+	*
-L	s2	+	s5	+	*
-L	s2	+	s6	+	*
-L	s3	+	s4	+	*
-L	s3	+	s5	+	*
-L	s3	+	s6	+	*
-L	s4	+	s6	+	*
-L	s4	+	s5	+	*
-L	s5	+	s10	+	*
-L	s5	+	s6	+	*
-L	s6	+	s10	+	*
-L	s7	+	s10	+	*
-L	s6	+	s4	+	*
-L	s8	+	s9	+	*
-L	s9	+	s10	+	*
-L	s8	+	s6	+	*
-L	s2	+	s8	+	*
+H  VN:Z:1.0
+S  s1  GATTACA
+S  s2  CCGT
+S  s3  AGA
+S  s4  TTT
+S  s5  BAHG
+S  s6  CGTG
+S  s7  GTT
+S  s8  ATA
+S  s9  CAC
+S  s10  AAA
+
+L  s1  +  s2  +  *
+L  s1  +  s3  +  *
+L  s1  +  s4  +  *
+L  s1  +  s5  +  *
+L  s1  +  s6  +  *
+L  s1  +  s7  +  *
+L  s1  +  s8  +  *
+L  s1  +  s9  +  *
+L  s1  +  s10  +  *
+
+L  s2  +  s3  +  *
+L  s2  +  s4  +  *
+L  s2  +  s5  +  *
+L  s2  +  s6  +  *
+L  s2  +  s7  +  *
+L  s2  +  s8  +  *
+L  s2  +  s9  +  *
+L  s2  +  s10  +  *
+
+L  s3  +  s2  +  *
+L  s3  +  s4  +  *
+L  s3  +  s5  +  *
+L  s3  +  s6  +  *
+L  s3  +  s7  +  *
+L  s3  +  s8  +  *
+L  s3  +  s9  +  *
+L  s3  +  s10  +  *
+
+L  s4  +  s2  +  *
+L  s4  +  s3  +  *
+L  s4  +  s4  +  *
+L  s4  +  s5  +  *
+L  s4  +  s6  +  *
+L  s4  +  s7  +  *
+L  s4  +  s8  +  *
+L  s4  +  s9  +  *
+L  s4  +  s10  +  *
+
+L  s5  +  s2  +  *
+L  s5  +  s3  +  *
+L  s5  +  s4  +  *
+L  s5  +  s5  +  *
+L  s5  +  s6  +  *
+L  s5  +  s7  +  *
+L  s5  +  s8  +  *
+L  s5  +  s9  +  *
+L  s5  +  s10  +  *
+
+L  s6  +  s2  +  *
+L  s6  +  s3  +  *
+L  s6  +  s4  +  *
+L  s6  +  s5  +  *
+L  s6  +  s6  +  *
+L  s6  +  s7  +  *
+L  s6  +  s8  +  *
+L  s6  +  s9  +  *
+L  s6  +  s10  +  *
+
+L  s7  +  s2  +  *
+L  s7  +  s3  +  *
+L  s7  +  s4  +  *
+L  s7  +  s5  +  *
+L  s7  +  s6  +  *
+L  s7  +  s7  +  *
+L  s7  +  s8  +  *
+L  s7  +  s9  +  *
+L  s7  +  s10  +  *
+
+L  s8  +  s2  +  *
+L  s8  +  s3  +  *
+L  s8  +  s4  +  *
+L  s8  +  s5  +  *
+L  s8  +  s6  +  *
+L  s8  +  s7  +  *
+L  s8  +  s8  +  *
+L  s8  +  s9  +  *
+L  s8  +  s10  +  *
+
+L  s9  +  s2  +  *
+L  s9  +  s3  +  *
+L  s9  +  s4  +  *
+L  s9  +  s5  +  *
+L  s9  +  s6  +  *
+L  s9  +  s7  +  *
+L  s9  +  s8  +  *
+L  s9  +  s9  +  *
+L  s9  +  s10  +  *
+
+L  s1  +  s11  +  *
+L  s11  +  s10  +  *

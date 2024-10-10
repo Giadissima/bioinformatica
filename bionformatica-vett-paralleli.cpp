@@ -178,11 +178,56 @@ void stampaGrafo()
     }
 }
 
+// PUNTO 3
+// Funzione per trovare tutti i cammini da s a t
+void DFS_cammini(string nodo_attuale, string nodo_destinazione, vector<string>& cammino_corrente, int& contatore_cammini) {
+    // Aggiungi il nodo corrente al cammino
+    cammino_corrente.push_back(nodo_attuale);
+
+    // Se siamo arrivati alla destinazione, stampiamo il cammino
+    if (nodo_attuale == nodo_destinazione) {
+        contatore_cammini++;
+        cout << "Cammino " << contatore_cammini << ": ";
+        for (const string& nodo : cammino_corrente) {
+            cout << nodo << " ";
+        }
+        cout << endl;
+        // Se abbiamo stampato 42 cammini, ci fermiamo
+        if (contatore_cammini >= 42) {
+            return;
+        }
+    } else {
+        // Altrimenti continuiamo la DFS per i nodi adiacenti
+        for (int i = 0; i < adiacenze_origini.size(); i++) {
+            if (adiacenze_origini[i] == nodo_attuale) {
+                DFS_cammini(adiacenze_destinazioni[i], nodo_destinazione, cammino_corrente, contatore_cammini);
+                if (contatore_cammini >= 42) {
+                    return;
+                }
+            }
+        }
+    }
+
+    // Rimuoviamo il nodo corrente dal cammino quando torniamo indietro
+    cammino_corrente.pop_back();
+}
+
+void trova_cammini(string sorgente, string destinazione) {
+    vector<string> cammino_corrente;
+    int contatore_cammini = 0;
+    DFS_cammini(sorgente, destinazione, cammino_corrente, contatore_cammini);
+    cout << "ci sono " << contatore_cammini<<" cammini"<<endl;
+}
+
 // Funzione principale del programma
 int main()
 {
-    leggiGFA("test1.gfa"); // Inserisci il nome del file GFA da analizzare
+    leggiGFA("test2.gfa"); // Inserisci il nome del file GFA da analizzare
     analizza_grafo(); // Esegui l'analisi del grafo per rimuovere back edges e cicli
     stampaGrafo(); // Stampa il grafo risultante
+    string sorgente = "s1";  // Esempio di nodo sorgente
+    string destinazione = "s10";  // Esempio di nodo destinazione
+
+    trova_cammini(sorgente, destinazione);
     return 0; // Termina il programma
 }
