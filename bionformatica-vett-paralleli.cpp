@@ -104,12 +104,16 @@ bool DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitat
             // Se troviamo il nodo di partenza, abbiamo trovato un ciclo
             if (prossimo_nodo == nodo_partenza) {
                 cancella_arco(j); // Rimuovi l'arco del ciclo
+                visitati.pop_back();
+
                 return true; // Indica che un ciclo è stato trovato e rimosso
             }
 
             // Se il prossimo nodo non è stato visitato, continua il DFS
             if (!is_visitato(visitati, prossimo_nodo)) {
                 if (DFS_loop(prossimo_nodo, nodo_partenza, visitati)) {
+                    visitati.pop_back();
+
                     return true; // Propaga il risultato verso l'alto se un ciclo è stato trovato
                 }
             }
@@ -124,15 +128,12 @@ void analizza_grafo()
 {
     cout << "Inizio a analizzare il grafo, rimuovendo back edges e cicli" << endl; // Informativa sull'inizio dell'analisi
     // Finché la DFS ha rilevato un arco da rimuovere, lo rimuove e rieffettua il ciclo
-    int numarchirimossi=0;
-    vector<string> visitati; 
+    int numarchirimossi = 0;
+    vector<string> visitati;
     for (int i = 0; i < nodi.size(); i++) {
         while (DFS_loop(nodi[i].id, nodi[i].id, visitati)) {
-            cout << "Rimozione arco n."<<numarchirimossi+1<<" eseguita" << endl; // Informa sulla rimozione dell'arco
+            cout << "Rimozione arco n." << numarchirimossi + 1 << " eseguita" << endl; // Informa sulla rimozione dell'arco
             numarchirimossi++;
-            while(visitati.size()>0){
-                visitati.erase(visitati.begin()); // Rimuovi il nodo di destinazione
-            }
         }
     }
 }
