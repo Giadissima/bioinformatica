@@ -67,7 +67,7 @@ public:
     }
 
     // Funzione per eseguire una DFS (ricerca in profondità) ricorsiva
-    bool DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitati)
+    void DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitati)
     {
         visitati.push_back(nodo_attuale); // Aggiungi il nodo attuale alla lista dei visitati
 
@@ -80,19 +80,15 @@ public:
                 if (prossimo_nodo == nodo_partenza) {
                     // Aggiungi l'indice dell'arco da rimuovere
                     azzeraArco(j);
-                    return true; // Indica che un ciclo è stato trovato
                 }
 
                 // Se il prossimo nodo non è stato visitato, continua il DFS
                 if (!is_visitato(visitati, prossimo_nodo)) {
-                    if (DFS_loop(prossimo_nodo, nodo_partenza, visitati)) {
-                        return true; // Propaga il risultato verso l'alto se un ciclo è stato trovato
-                    }
+                    DFS_loop(prossimo_nodo, nodo_partenza, visitati);
                 }
             }
         }
-
-        return false; // Nessun ciclo trovato a partire dal nodo attuale
+        visitati.pop_back();
     }
 
     void analizzaGrafo()
@@ -102,7 +98,6 @@ public:
         vector<string> visitati; // Lista per tenere traccia dei nodi visitati
         for(int i=0; i<nodi.size(); i++){
             DFS_loop(nodi[i].id, nodi[i].id, visitati);
-            visitati.clear();
         }
 
         // Rimuovi tutti gli archi raccolti
@@ -110,8 +105,11 @@ public:
             if (adiacenze[i].destinazione == "") {
                 cout << "rimozione arco..." << endl;
                 shiftArco(i);
+                i--;
             }
         }
+
+
     }
 
     void aggiungiNodo(const string& id, const string& sequenza)
@@ -158,17 +156,17 @@ public:
         if (nodi.size() == 0)
             cout << "non ci sono nodi" << endl;
         for (int i = 0; i < nodi.size(); i++) {
-            cout << "Nodo " << nodi[i].id << " " << nodi[i].sequenza << " collegato a:" << endl;
             bool trovato = false;
             for (int j = 0; j < adiacenze.size(); j++) {
                 if (nodi[i].id == adiacenze[j].origine) {
-                    cout << adiacenze[j].destinazione << " con overlap " << adiacenze[j].overlap << endl;
+                    cout << nodi[i].id <<"->"<< adiacenze[j].destinazione << " " << adiacenze[j].overlap << endl;
                     trovato = true;
                 }
             }
             if (!trovato) {
-                cout << "non ci sono nodi collegati a " << nodi[i].id << endl;
+                cout << "non ci sono nodi collegati a " << nodi[i].id;
             }
+            cout<<endl;
         }
     }
 
