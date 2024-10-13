@@ -55,6 +55,8 @@ public:
     void azzeraArco(int i)
     {
         adiacenze[i].destinazione = ""; // Rimuovi il nodo di destinazione
+        adiacenze[i].origine = ""; // Rimuovi il nodo di destinazione
+        adiacenze[i].overlap = ""; // Rimuovi il nodo di destinazione
     }
 
     // Funzione per verificare se un nodo è già stato visitato
@@ -90,34 +92,17 @@ public:
             }
         }
 
-        visitati.pop_back(); // Rimuovi il nodo dalla lista dei visitati
         return false; // Nessun ciclo trovato a partire dal nodo attuale
     }
 
-    // Funzione per avviare la rimozione dei cicli
-    bool remove_loop(string nodo_partenza)
+    void analizzaGrafo()
     {
+
+        cout << "Inizio a analizzare il grafo, rimuovendo back edges e cicli" << endl; // Informativa sull'inizio dell'analisi
         vector<string> visitati; // Lista per tenere traccia dei nodi visitati
-
-        // Avvia DFS dal nodo di partenza
-        return DFS_loop(nodo_partenza, nodo_partenza, visitati); // Restituisce true se un ciclo è stato trovato
-    }
-
-    // Funzione per eseguire la ricerca in profondità su tutti i nodi
-    bool DFS()
-    {
-        bool rimozione = false;
-        // Resetta il vettore di archi da rimuovere per ogni esecuzione della DFS
-
-        for (int i = 0; i < nodi.size(); i++) {
-            for (int j = 0; j < adiacenze.size(); j++) {
-                if (nodi[i].id == adiacenze[j].origine) {
-                    // Controlla se un arco crea un back edge o un ciclo
-                    if (remove_loop(nodi[i].id)) {
-                        rimozione = true; // Se un arco è stato rimosso, ritorna true
-                    }
-                }
-            }
+        for(int i=0; i<nodi.size(); i++){
+            DFS_loop(nodi[i].id, nodi[i].id, visitati);
+            visitati.clear();
         }
 
         // Rimuovi tutti gli archi raccolti
@@ -127,14 +112,6 @@ public:
                 shiftArco(i);
             }
         }
-
-        return rimozione;
-    }
-
-    void analizzaGrafo()
-    {
-        cout << "Inizio a analizzare il grafo, rimuovendo back edges e cicli" << endl; // Informativa sull'inizio dell'analisi
-        while (DFS()) { }
     }
 
     void aggiungiNodo(const string& id, const string& sequenza)
@@ -230,6 +207,7 @@ public:
         cammino_corrente.pop_back();
     }
 
+// TODO rimuovere la funzione e dichiarare il contatore nel main
     void trova_cammini(string sorgente, string destinazione)
     {
         vector<string> cammino_corrente;
@@ -242,9 +220,10 @@ public:
 int main()
 {
     Grafo grafo;
-    grafo.leggiGFA("test2.gfa"); // Inserisci il nome del file GFA qui
+    grafo.leggiGFA("test1.gfa"); // Inserisci il nome del file GFA qui
     grafo.analizzaGrafo();
     grafo.stampaGrafo(); // Stampa il grafo per verificare se è corretto
+    
     // TODO da tastiera
     string sorgente = "s1"; // Esempio di nodo sorgente
     string destinazione = "s10"; // Esempio di nodo destinazione
