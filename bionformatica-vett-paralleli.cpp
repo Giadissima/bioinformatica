@@ -115,7 +115,7 @@ bool DFS_loop(string nodo_attuale, string nodo_partenza, vector<string>& visitat
             }
         }
     }
-
+    visitati.pop_back();
     return false; // Nessun ciclo trovato a partire dal nodo attuale
 }
 
@@ -127,10 +127,12 @@ void analizza_grafo()
     int numarchirimossi=0;
     vector<string> visitati; 
     for (int i = 0; i < nodi.size(); i++) {
-        visitati.clear();
         while (DFS_loop(nodi[i].id, nodi[i].id, visitati)) {
             cout << "Rimozione arco n."<<numarchirimossi+1<<" eseguita" << endl; // Informa sulla rimozione dell'arco
             numarchirimossi++;
+            while(visitati.size()>0){
+                visitati.erase(visitati.begin()); // Rimuovi il nodo di destinazione
+            }
         }
     }
 }
