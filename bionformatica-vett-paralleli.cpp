@@ -37,13 +37,7 @@ void aggiungiNodo(const string id, const string sequenza)
 }
 
 // Funzione per aggiungere un arco tra due nodi
-void aggiungiArco(const string origine, const string destinazione, string overlap)
-{
-    adiacenze_origini.push_back(origine); // Aggiungi il nodo di origine
-    adiacenze_destinazioni.push_back(destinazione); // Aggiungi il nodo di destinazione
-    adiacenze_overlap.push_back(overlap); // Aggiungi l'overlap tra i nodi
-}
-
+void aggiungiArco(const string origine, const string destinazione, string overlap);
 // Funzione per leggere un file GFA e costruire il grafo
 void leggiGFA(const string& filename)
 {
@@ -65,8 +59,8 @@ void leggiGFA(const string& filename)
             iss >> id >> sequenza; // Leggi ID e sequenza
             aggiungiNodo(id, sequenza); // Aggiungi il nodo al grafo
         } else if (tipo == "L") { // Se la riga rappresenta un arco
-            string origine, orientamentoOrigine, destinazione, orientamentoDestinazione, overlap;
-            iss >> origine >> orientamentoOrigine >> destinazione >> orientamentoDestinazione >> overlap; // Leggi i dettagli dell'arco
+            string origine, _, destinazione, _, overlap;
+            iss >> origine >> _ >> destinazione >> _ >> overlap; // Leggi i dettagli dell'arco
             aggiungiArco(origine, destinazione, overlap); // Aggiungi l'arco al grafo
         }
     }
@@ -180,6 +174,7 @@ void DFS_cammini(string nodo_attuale, string nodo_destinazione, vector<string>& 
         cout << endl;
         // Se abbiamo stampato 42 cammini, ci fermiamo
         if (contatore_cammini >= 42) {
+            cammino_corrente.pop_back();
             return;
         }
     } else {
@@ -188,6 +183,7 @@ void DFS_cammini(string nodo_attuale, string nodo_destinazione, vector<string>& 
             if (adiacenze_origini[i] == nodo_attuale) {
                 DFS_cammini(adiacenze_destinazioni[i], nodo_destinazione, cammino_corrente, contatore_cammini);
                 if (contatore_cammini >= 42) {
+                    cammino_corrente.pop_back();
                     return;
                 }
             }
@@ -209,14 +205,22 @@ void trova_cammini(string sorgente, string destinazione)
 // Funzione principale del programma
 int main()
 {
-    leggiGFA("test1.gfa"); // Inserisci il nome del file GFA da analizzare
+    leggiGFA("test2.gfa"); // Inserisci il nome del file GFA da analizzare
     analizza_grafo(); // Esegui l'analisi del grafo per rimuovere back edges e cicli
     stampaGrafo(); // Stampa il grafo risultante
 
     // TODO da tastiera
     string sorgente = "s1"; // Esempio di nodo sorgente
     string destinazione = "s10"; // Esempio di nodo destinazione
-
     trova_cammini(sorgente, destinazione);
     return 0; // Termina il programma
+}
+
+
+// Funzione per aggiungere un arco tra due nodi
+void aggiungiArco(const string origine, const string destinazione, string overlap)
+{
+    adiacenze_origini.push_back(origine); // Aggiungi il nodo di origine
+    adiacenze_destinazioni.push_back(destinazione); // Aggiungi il nodo di destinazione
+    adiacenze_overlap.push_back(overlap); // Aggiungi l'overlap tra i nodi
 }

@@ -28,11 +28,11 @@ public:
         overlap = ov;
     }
 };
-
 class Grafo {
 public:
     vector<Nodo> nodi;
     vector<Arco> adiacenze;
+
     string id;
     string sequenza;
 
@@ -79,7 +79,10 @@ public:
                 // Se troviamo il nodo di partenza, abbiamo trovato un ciclo
                 if (prossimo_nodo == nodo_partenza) {
                     // Aggiungi l'indice dell'arco da rimuovere
-                    azzeraArco(j);
+                    adiacenze.erase(adiacenze.begin()+j);
+                cout << "rimozione arco n."<< j << endl;
+
+                    j--;
                 }
 
                 // Se il prossimo nodo non è stato visitato, continua il DFS
@@ -100,14 +103,14 @@ public:
             DFS_loop(nodi[i].id, nodi[i].id, visitati);
         }
 
-        // Rimuovi tutti gli archi raccolti
-        for (int i = 0; i < adiacenze.size(); i++) {
-            if (adiacenze[i].destinazione == "") {
-                cout << "rimozione arco..." << endl;
-                shiftArco(i);
-                i--;
-            }
-        }
+        // // Rimuovi tutti gli archi raccolti
+        // for (int i = 0; i < adiacenze.size(); i++) {
+        //     if (adiacenze[i].destinazione == "") {
+        //         cout << "rimozione arco..." << endl;
+        //         shiftArco(i);
+        //         i--;
+        //     }
+        // }
 
 
     }
@@ -122,17 +125,20 @@ public:
         adiacenze.push_back(Arco(origine, destinazione, overlap));
     }
 
+/*
+    LeggiGFA legge un file di formato gfa e lo carica in un vettore
+*/
     void leggiGFA(const string filename)
     {
         // Utilizzo di freopen per reindirizzare stdin al file
-        FILE* file = freopen(filename.c_str(), "r", stdin);
+        ifstream file;
+        file.open(filename);
         if (!file) {
             cerr << "Errore: Impossibile aprire il file " << filename << endl;
             exit(1);
         }
-
         string linea;
-        while (getline(cin, linea)) { // Leggi dalla stdin
+        while (getline(file, linea)) { // Leggi dalla stdin
             istringstream iss(linea);
             string tipo;
             iss >> tipo;
@@ -142,14 +148,16 @@ public:
                 iss >> id >> sequenza;
                 aggiungiNodo(id, sequenza);
             } else if (tipo == "L") {
-                string origine, orientamentoOrigine, destinazione, orientamentoDestinazione, overlap;
-                iss >> origine >> orientamentoOrigine >> destinazione >> orientamentoDestinazione >> overlap;
+                string origine, _, destinazione, overlap;
+                iss >> origine >> _ >> destinazione >> _ >> overlap;
                 aggiungiArco(origine, destinazione, overlap);
             }
         }
 
-        fclose(file); // Chiudi il file
+        file.close(); // Chiudi il file
     }
+
+    // definisco una variabile di tipo isstringstream per poter iterare sulla riga come se facessi un cin
 
     void stampaGrafo()
     {
@@ -181,12 +189,13 @@ public:
         if (nodo_attuale == nodo_destinazione) {
             contatore_cammini++;
             cout << "Cammino " << contatore_cammini << ": ";
-            for (const string& nodo : cammino_corrente) {
+            for (string& nodo : cammino_corrente) {
                 cout << nodo << " ";
             }
             cout << endl;
             // Se abbiamo stampato 42 cammini, ci fermiamo
             if (contatore_cammini >= 42) {
+                cammino_corrente.pop_back();
                 return;
             }
         } else {
@@ -195,6 +204,7 @@ public:
                 if (adiacenze[i].origine == nodo_attuale) {
                     DFS_cammini(adiacenze[i].destinazione, nodo_destinazione, cammino_corrente, contatore_cammini);
                     if (contatore_cammini >= 42) {
+                        cammino_corrente.pop_back();
                         return;
                     }
                 }
@@ -215,7 +225,8 @@ public:
     }
 };
 
-int main()
+
+int main(int argc, char const *argv[])
 {
     Grafo grafo;
     grafo.leggiGFA("test1.gfa"); // Inserisci il nome del file GFA qui
@@ -224,7 +235,8 @@ int main()
     
     // TODO da tastiera
     string sorgente = "s1"; // Esempio di nodo sorgente
-    string destinazione = "s10"; // Esempio di nodo destinazione
+    string destinazione = "s4"; // Esempio di nodo destinazione
+    string s;
 
     grafo.trova_cammini(sorgente, destinazione);
     return 0;
