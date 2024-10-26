@@ -31,10 +31,7 @@ vector<string> adiacenze_overlap; // ? L'overlap è una parte di una sequenza ch
 
 // CREAZIONE GRAFO
 // Funzione per aggiungere un nodo al grafo
-void aggiungiNodo(const string id, const string sequenza)
-{
-    nodi.push_back(Nodo(id, sequenza)); // Aggiungi un nuovo nodo alla lista di nodi
-}
+void aggiungiNodo(const string id, const string sequenza);
 
 // Funzione per aggiungere un arco tra due nodi
 void aggiungiArco(const string origine, const string destinazione, string overlap)
@@ -219,4 +216,9 @@ int main()
 
     trova_cammini(sorgente, destinazione);
     return 0; // Termina il programma
+}
+
+void aggiungiNodo(const string id, const string sequenza)
+{
+    nodi.push_back(Nodo(id, sequenza)); // Aggiungi un nuovo nodo alla lista di nodi
 }
